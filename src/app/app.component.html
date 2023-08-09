@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html *ngIf="isLoggedin">
-<head>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
-</head>
-<body>
+
 	<div class="main">  	
 		<input type="checkbox" id="chk" aria-hidden="true">
 
@@ -22,11 +17,17 @@
 					<label for="chk" aria-hidden="true">Login</label>
 					<input type="email" name="email" placeholder="Email" required="" [(ngModel)]="loginObj.email" >
 					<input type="password" name="pswd" placeholder="Password" required="" [(ngModel)]="loginObj.password">
+
 					<button (click)="onLogin()">Login</button>
 				</form>
-			</div>
-			
-			
+			</div>		
 	</div>
-</body>
-</html>
+
+
+	
+	<div class="container">
+		<p>
+			{{AllObj | json }}
+		</p>
+	</div>
+

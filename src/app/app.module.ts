@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { RegisterComponent } from './register/register.component';
 import { LoginService } from './login-service.service';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -12,8 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     
-    AppComponent,
-    RegisterComponent,    
+    AppComponent 
   
     
   ],

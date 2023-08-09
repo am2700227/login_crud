@@ -1,65 +1,65 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from './login-service.service';
-import { Router } from '@angular/router';
 
-
-
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  templateUrl:'./app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit{
-  
-
-  form!: FormGroup;
-  title = 'login_cred';
-
-  signUpUsers: any[]=[];
-  signUpObj: any = {
+export class AppComponent implements OnInit {
+ 
+  signUpObj ={
     username: '',
     email: '',
-    password: ''
+    password: '',
   };
-  loginObj: any ={
+
+  loginObj: any = {
     userName: '',
     password: ''
+  };
 
+  AllObj: any={
+    
   }
-  constructor(private formBuilder: FormBuilder,private service:LoginService,private router:Router){}
+
+  user: any;
+  isLoggedin: boolean = true;
+
+  constructor(private formBuilder: FormBuilder,private service:LoginService){}
   ngOnInit(): void {
 
-    const localData = localStorage.getItem('signUpUsers')
-    if(localData != null){
-      this.signUpUsers = JSON.parse(localData);
-    }
+    this.getData();
+    
   }
-  onSIgnUp(){
-    this.signUpUsers.push(this.signUpObj)
-    console.log(this.signUpObj)
-    localStorage.setItem('signUpUsers',JSON.stringify(this.signUpUsers))
+
+
+  onSIgnUp() {
     this.service.reg(this.signUpObj).subscribe((Response) => {
       console.log(Response);
     });
-      }
-      user:any
-      isLoggedin:boolean=true
-  onLogin(){
-    // console.log(this.loginObj);
-    this.service.loginR(this.loginObj.email).subscribe((data)=>{
-      this.user=data
-      console.log(this.user);    
-       if((this.user.email)===(this.loginObj.email) && (this.user.password)===(this.loginObj.password)){
-        this.isLoggedin=false
-        alert("login successfull")
-        
-       }
-       console.log(this.isLoggedin)   
-    })
-   
   }
-  
+
+ 
+  onLogin() {
+    this.service.loginR(this.loginObj.email).subscribe((data) => {
+      this.user = data;
+      if (this.user.email === this.loginObj.email && this.user.password === this.loginObj.password) {
+        this.isLoggedin = true;
+        alert('login successfull');
+      }
+    });
+  }
+
+  getData(){
+    this.service.getAll().subscribe((response) => {
+      console.log(response);
+      
+      this.AllObj = response
+      console.log(this.AllObj);
+    }
+    )
+  }
 }
